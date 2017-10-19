@@ -52,26 +52,28 @@ struct song_node * insert_front(struct song_node* node, char*name, char* artist)
   return p;
 }
 
-struct song_node* insert_in_order(struct song_node* node, char* name, char* artist){
-  if(node == NULL) return insert_front(NULL, name, artist);
+struct song_node* insert_in_order(struct song_node* nodeFront, char* name, char* artist){
+  if(nodeFront == NULL) return insert_front(NULL, name, artist);
   struct song_node* p = (struct song_node*) malloc(size);
   struct song_node new;
+  struct song_node* node = nodeFront;
   strcpy(new.name, name);
   strcpy(new.artist, artist);
   new.next = NULL;
   *p = new;
   while(node -> next ){
     int cmp = songcmp(p, node -> next);
-    if(cmp < 0){
-      p -> next  = node -> next;
-      node -> next = p;
+    if(cmp <= 0){
+      (p -> next)  = (node -> next);
+      (node -> next) = p;
       //printf("%s\n", name);
-      return p;
+      return nodeFront;
     }
     node = node -> next;
   }
-  node -> next = p;
-  return p;
+  if(songcmp(p, node) < 0) return insert_front(node, p-> name, p-> artist);
+  else node -> next = p;
+  return nodeFront;
 }
 
 //Takes a pointer to a list
@@ -93,13 +95,12 @@ struct song_node * free_list(struct song_node* node){
 int main(){
   struct song_node* a = insert_front(NULL, "Hey Jude", "Beatles");
   print_list(a);
-struct song_node* b = insert_in_order(a, "Let it Be", "Beatles");
-  print_list(a);
-  struct song_node*c = insert_in_order(a, "hehwh", "Bodak Black");
-  print_list(a);
-  struct song_node*d = insert_in_order(a, "asdss", "Bodak Black");
-  print_list(a);
-  struct song_node*e = insert_in_order(a, "kobe", "Bodak Black");
-  print_list(a);
-  printf("%d\n", songcmp(d ,e ) );
+struct song_node* b = insert_in_order(a, "AA", "Beatles");
+  print_list(b);
+  struct song_node*c = insert_in_order(b, "hehwh", "Bodak Black");
+  print_list(c);
+  struct song_node*d = insert_in_order(c, "asdss", "Bodak Black");
+  print_list(d);
+  struct song_node*e = insert_in_order(d, "kobe", "Bodak Black");
+  print_list(e);
 }
