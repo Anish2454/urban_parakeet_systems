@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 struct song_node {
   char name[256];
@@ -24,6 +25,11 @@ void print_list(struct song_node* node){
   return print_list(node->next);
 }
 
+int get_size(struct song_node* list){
+  int i;
+  for(i = 0; list; i++) list = list -> next;
+  return i;
+}
 
 int songcmp(struct song_node* song1, struct song_node* song2){
   int artist_cmp = strcmp(song1 -> artist, song2 -> artist);
@@ -92,10 +98,56 @@ struct song_node * free_list(struct song_node* node){
   return free_list(next);
 }
 
+struct song_node* find_song(struct song_node* list, char* name, char* artist){
+  while(list){
+    if(!strcmp(list -> name, name) && !strcmp(list -> artist, artist)) return list;
+    list = list -> next;
+  }
+  return NULL;
+}
+
+struct song_node* find_song_by_artist(struct song_node* list, char* artist){
+  while(list){
+    if(!strcmp(list -> artist, artist)) return list;
+    list = list -> next;
+  }
+  return NULL;
+}
+
+struct song_node* remove_node(struct song_node* listFront, struct song_node* node){
+  if(listFront == node){
+    struct song_node* newFront = listFront -> next;
+    listFront -> next = NULL;
+    free(listFront);
+    return newFront;
+  }
+  struct song_node* list = listFront;
+  while(list -> next){
+    if(list->next == node){
+      list->next = list->next->next;
+      node -> next = NULL;
+      free(node);
+      return listFront;
+    }
+    list = list -> next;
+  }
+  return listFront;
+}
+
+struct song_node* random_node(struct song_node* list){
+  int size = get_size(list);
+  srand(time(NULL));
+  int random = rand() % size;
+  int i;
+  for(i = 0; i<random; i++){
+    list = list->next;
+  }
+  return list;
+}
 int main(){
-  struct song_node* a = insert_front(NULL, "Hey Jude", "Beatles");
+  struct song_node* a = insert_in_order(NULL, "Hey Jude", "Beatles");
   print_list(a);
-struct song_node* b = insert_in_order(a, "AA", "Beatles");
+  struct song_node* b = insert_in_order(a, "AA", "Beatles");
   print_list(b);
   struct song_node*c = insert_in_order(b, "hehwh", "Bodak Black");
   print_list(c);
@@ -103,4 +155,19 @@ struct song_node* b = insert_in_order(a, "AA", "Beatles");
   print_list(d);
   struct song_node*e = insert_in_order(d, "kobe", "Bodak Black");
   print_list(e);
+  printf("%d\n", get_size(e));
+  printf("%s\n", find_song(e, "AA", "Beatles")-> name);
+  printf("%s\n", find_song(e, "ddfs", "Beatles")-> name);
+  printf("%s\n", find_song_by_artist(e, "Beatles")-> name);
+  printf("%s\n", find_song_by_artist(e, "Bodak Black")-> name);
+  printf("Random: %s\n", random_node(e)->name);
+  e = remove_node(e, a);
+  print_list(e);
+  e = remove_node(e, b);
+  print_list(e);
+  e = remove_node(e, b);
+  print_list(e);
+  e = remove_node(e, e->next);
+  print_list(e);
+
 }
