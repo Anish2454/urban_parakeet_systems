@@ -58,17 +58,19 @@ struct song_node* insert_in_order(struct song_node* node, char* name, char* arti
   struct song_node new;
   strcpy(new.name, name);
   strcpy(new.artist, artist);
+  new.next = NULL;
   *p = new;
-  while(node){
-    int cmp = songcmp(&new, node);
+  while(node -> next ){
+    int cmp = songcmp(&new, node -> next);
     if(cmp >= 0){
-      new.next = node -> next;
+      new.next = node -> next -> next;
       node -> next = p;
       //printf("%s\n", name);
       return p;
     }
     node = node -> next;
   }
+  node -> next = p;
   return p;
 }
 
@@ -92,7 +94,7 @@ int main(){
   struct song_node* a = insert_front(NULL, "Hey Jude", "Beatles");
   print_list(a);
   struct song_node* b = insert_in_order(a, "Let it Be", "Beatles");
-  print_list(b);
+  print_list(a);
   struct song_node* c = insert_in_order(a, "hehwh", "Bodak Black");
   print_list(a);
   struct song_node* d = insert_in_order(a, "asdss", "Bodak Black");
