@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 #include "listfxns.h"
 
 //size of node
@@ -24,10 +25,28 @@ int get_size(struct song_node* list){
   return i;
 }
 
+char* convert_lower(char* string){
+  char* new = (char*) calloc(256, sizeof(char));
+  int i;
+  for(i=0;string[i];i++){
+    new[i] = tolower(string[i]);
+  }
+  return new;
+}
+
 int songcmp(struct song_node* song1, struct song_node* song2){
-  int artist_cmp = strcmp(song1 -> artist, song2 -> artist);
+  char* name1 = convert_lower(song1 -> name);
+  char* name2 = convert_lower(song2 -> name);
+  char* artist1 = convert_lower(song1 -> artist);
+  char* artist2 = convert_lower(song2 -> artist);
+  int artist_cmp = strcmp(artist1, artist2);
+  int song_cmp = strcmp(name1, name2);
+  free(name1);
+  free(name2);
+  free(artist1);
+  free(artist2);
   if(artist_cmp) return artist_cmp;
-  return strcmp(song1 -> name, song2 -> name);
+  return song_cmp;
 }
 
 //Takes a pointer to an existing list and the data to be created
@@ -92,18 +111,40 @@ struct song_node * free_list(struct song_node* node){
 }
 
 struct song_node* find_song(struct song_node* list, char* name, char* artist){
+  char* name_lower = convert_lower(name);
+  char* artist_lower = convert_lower(artist);
   while(list){
-    if(!strcmp(list -> name, name) && !strcmp(list -> artist, artist)) return list;
+    char* list_name = convert_lower(list -> name);
+    char* list_artist = convert_lower(list -> artist);
+    if(!strcmp(list_name, name_lower) && !strcmp(list_artist, artist_lower)){
+      free(name_lower);
+      free(artist_lower);
+      free(list_name);
+      free(list_artist);
+      return list;
+    }
     list = list -> next;
+    free(list_name);
+    free(list_artist);
   }
+  free(name_lower);
+  free(artist_lower);
   return NULL;
 }
 
 struct song_node* find_song_by_artist(struct song_node* list, char* artist){
+  char* artist_lower = convert_lower(artist);
   while(list){
-    if(!strcmp(list -> artist, artist)) return list;
+    char* list_artist = convert_lower(list -> artist);
+    if(!strcmp(list_artist, artist_lower)){
+      free(artist_lower);
+      free(list_artist);
+      return list;
+    }
+    free(list_artist);
     list = list -> next;
   }
+  free(artist_lower);
   return NULL;
 }
 

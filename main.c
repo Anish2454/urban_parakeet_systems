@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 #include "listfxns.h"
 
 struct song_node* music_lib[26]; //maybe 27 for non letter?
 int main(){
-  
+
 
   struct song_node* a = insert_in_order(NULL, "Hey Jude", "Beatles");
   print_list(a);
@@ -19,13 +20,11 @@ int main(){
   struct song_node*e = insert_in_order(d, "Aobe", "Bodak Black");
   print_list(e);
   printf("%d\n", get_size(e));
-  printf("FIND: %p\n" , find_song(e, "AA", "Beatles"));
+  printf("FIND: %s\n" , find_song(e, "aA", "Beatles") -> name);
 
-  printf( "FIND: %p\n",find_song(e, "ddfs", "Beatles"));
-  printf("By the Beatles:  |");
-  print_list(find_song_by_artist(e, "Beatles"));
-  printf("By Bodak Black:  |");
-  print_list(find_song_by_artist(e, "Bodak Black"));
+  printf("FIND: %s\n",find_song(e, "ddfs", "Beatles") -> name);
+  printf("First song by Beatles: %s\n", find_song_by_artist(e, "Beatles") -> name);
+  printf("First song by Bodak Black: %s\n", find_song_by_artist(e, "BOdAk BLAck") -> name);
   struct song_node * random = random_node(e);
   printf("Random: %s:%s \n", random -> artist, random -> name );
   e = remove_node(e, a);

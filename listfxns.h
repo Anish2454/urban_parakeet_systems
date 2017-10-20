@@ -6,6 +6,7 @@ struct song_node {
 
 void print_list(struct song_node* node);
 int get_size(struct song_node* list);
+char* convert_lower(char* string);
 int songcmp(struct song_node* song1, struct song_node* song2);
 struct song_node * insert_front(struct song_node* node, char*name, char* artist);
 struct song_node* insert_in_order(struct song_node* nodeFront, char* name, char* artist);
