@@ -71,7 +71,7 @@ void remove_song(char* name, char* artist){
 	struct song_node* front = get_list(artist[0]);
 	table[get_index(artist[0])] = remove_node(front, song);
 }
-
+/*
 void shuffle(){
 	for(i = 0; i < 3; i++){
 		srand(time(NULL));
@@ -79,7 +79,8 @@ void shuffle(){
 		int randarr = rand() % size;
 		while(randarr) if(table[i]) randarr--;
 		i++;
-}
+		*/
+
 
 
 
