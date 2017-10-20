@@ -5,6 +5,12 @@
 #include <ctype.h>
 #include "listfxns.h"
 
+/* TODO:
+Comments
+Test Cases
+*/
+
+
 //size of node
 size_t size = sizeof(struct song_node);
 
