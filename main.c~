@@ -48,9 +48,5 @@ int main(){
   print_artist("A");
   print_list(find_song_lib("a", "b"));
   print_list(find_song_lib("b", "b"));
-  remove_song("b", "b");
-  print_lib();
-  remove_song("a", "a");
-  print_lib();
 
 }

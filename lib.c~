@@ -79,6 +79,8 @@ void shuffle(){
 		int randarr = rand() % size;
 		while(randarr) if(table[i]) randarr--;
 		i++;
+		
+			
 }
 
 
