@@ -22,7 +22,7 @@ int main(){
   printf("%d\n", get_size(e));
   printf("FIND: %s\n" , find_song(e, "aA", "Beatles") -> name);
 
-  printf("FIND: %s\n",find_song(e, "ddfs", "Beatles") -> name);
+  printf("FIND: %s\n", find_song(e, "fef", "Beatles"));
   printf("First song by Beatles: %s\n", find_song_by_artist(e, "Beatles") -> name);
   printf("First song by Bodak Black: %s\n", find_song_by_artist(e, "BOdAk BLAck") -> name);
   struct song_node * random = random_node(e);

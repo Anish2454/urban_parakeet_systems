@@ -1,6 +1,6 @@
 struct song_node {
-  char name[256];
-  char artist[256];
+  char* name;
+  char* artist;
   struct song_node* next;
 };
 

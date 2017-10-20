@@ -63,8 +63,8 @@ struct song_node * insert_front(struct song_node* node, char*name, char* artist)
 
   //Create the new node
   struct song_node new;
-  strcpy(new.name, name);
-  strcpy(new.artist, artist);
+  new.name = name;
+  new.artist = artist;
   new.next = node; //places at beginning
   *p = new;
   return p;
@@ -75,8 +75,8 @@ struct song_node* insert_in_order(struct song_node* nodeFront, char* name, char*
   struct song_node* p = (struct song_node*) malloc(size);
   struct song_node new;
   struct song_node* node = nodeFront;
-  strcpy(new.name, name);
-  strcpy(new.artist, artist);
+  new.name = name;
+  new.artist = artist;
   new.next = NULL;
   *p = new;
   while(node -> next ){
