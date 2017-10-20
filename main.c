@@ -4,6 +4,7 @@
 #include <time.h>
 #include <ctype.h>
 #include "listfxns.h"
+#include "lib.h"
 
 struct song_node* music_lib[26]; //maybe 27 for non letter?
 int main(){
@@ -21,7 +22,6 @@ int main(){
   print_list(e);
   printf("%d\n", get_size(e));
   printf("FIND: %s\n" , find_song(e, "aA", "Beatles") -> name);
-
   printf("FIND: %s\n", find_song(e, "fef", "Beatles"));
   printf("First song by Beatles: %s\n", find_song_by_artist(e, "Beatles") -> name);
   printf("First song by Bodak Black: %s\n", find_song_by_artist(e, "BOdAk BLAck") -> name);
@@ -35,5 +35,15 @@ int main(){
   print_list(e);
   e = remove_node(e, e->next);
   print_list(e);
+  add_song("a","A");
+  add_song("b","a");
+  add_song("c","A");
+  add_song("a","b");
+  add_song("b","b");
+  add_song("c","b");
+  add_song("c","d");
+  print_lib();
+  print_letter('A');
+  print_letter('a');
 
 }

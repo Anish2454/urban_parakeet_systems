@@ -1,5 +1,4 @@
-//#include "lib.h"
-
+#include "lib.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +6,7 @@
 #include <ctype.h>
 #include "listfxns.h"
 
-struct song_node * table[27];
+struct song_node* table[27];
 
 void print_lib(){
   int i = 0;
@@ -23,34 +22,14 @@ void print_letter(char letter){
   printf("print list %c: ", letter);
   if(letter < 97){
     print_list(table[letter - 65]);
-  }else{
-  
-  print_list(table[letter - 97]);
+  }
+  else{
+    print_list(table[letter - 97]);
   }
 }
-void add_song(char* name, char * artist){
-  char * low_art = convert_lower(artist);
+void add_song(char* name, char *artist){
+  char* low_art = convert_lower(artist);
   int index = low_art[0] - 97;
   free(low_art);
-  table[index]=insert_in_order(table[index], name, artist); 
+  table[index]= insert_in_order(table[index], name, artist);
 }
-
-int main(){
-  add_song("a","A");
-  add_song("b","a");
-  add_song("c","A");
-  add_song("a","b");
-  add_song("b","b");
-  add_song("c","b");
-  add_song("c","d");
-  print_lib();
-  print_letter('A');
-  print_letter('a');
-  
- 
-  
-
-  
-}
-
-
