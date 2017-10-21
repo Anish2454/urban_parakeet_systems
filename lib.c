@@ -7,13 +7,12 @@
 #include "listfxns.h"
 
 /* TODO:
-Shuffle - print out a series of randomly chosen songs.
 Delete all the nodes.
 Comments
 Test Cases
 */
 
-struct song_node* table[27];
+struct song_node* table[26];
 
 int get_index(char letter){
   if(letter < 97){
@@ -38,7 +37,7 @@ void print_lib(){
   int i = 0;
   while(i < 27){
     if(table[i]){
-      printf("index[%d] : ", i);
+      printf("%c list : ", tolower((table[i] -> artist)[0]));
       print_list(table[i]);
     }
     i++;
@@ -58,7 +57,8 @@ struct song_node* find_artist(char* artist){
 }
 
 void print_artist(char* artist){
-	print_list(find_artist(artist));
+  if(find_artist(artist)) print_list(find_artist(artist));
+  else printf("Artist Not Found!\n");
 }
 
 struct song_node* find_song_lib(char* name, char* artist){
@@ -71,16 +71,23 @@ void remove_song(char* name, char* artist){
 	struct song_node* front = get_list(artist[0]);
 	table[get_index(artist[0])] = remove_node(front, song);
 }
-/*
+
 void shuffle(){
-	for(i = 0; i < 3; i++){
-		srand(time(NULL));
-		int i;
-		int randarr = rand() % size;
-		while(randarr) if(table[i]) randarr--;
-		i++;
-		*/
+  int i;
+  for(i=0; i < 3; i++){
+    int random = rand() % 26;
+    while(!table[random]) random = (random + 1) % 26;
+    struct song_node* rand_node = random_node(table[random]);
+    printf("%s: %s\n", rand_node -> artist, rand_node -> name);
+  }
+}
 
-
-
-
+void delete_nodes(){
+  int i;
+  for (i = 0; i<26; i++){
+    if(table[i]){
+      free_list(table[i]);
+      table[i] = 0;
+    }
+  }
+}

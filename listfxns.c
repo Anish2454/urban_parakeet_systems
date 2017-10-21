@@ -176,8 +176,7 @@ struct song_node* remove_node(struct song_node* listFront, struct song_node* nod
 
 struct song_node* random_node(struct song_node* list){
   int size = get_size(list);
-  srand(time(NULL));
-  int random = rand() % size;
+  int random = (rand() % size);
   int i;
   for(i = 0; i<random; i++){
     list = list->next;
