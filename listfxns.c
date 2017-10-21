@@ -5,11 +5,6 @@
 #include <ctype.h>
 #include "listfxns.h"
 
-/* TODO:
-Comments
-Test Cases
-*/
-
 
 //size of node
 size_t size = sizeof(struct song_node);
@@ -25,12 +20,14 @@ void print_list(struct song_node* node){
   return print_list(node->next);
 }
 
+//Gets size of linked list
 int get_size(struct song_node* list){
   int i;
   for(i = 0; list; i++) list = list -> next;
   return i;
 }
 
+//Converts String to lowercase
 char* convert_lower(char* string){
   char* new = (char*) calloc(256, sizeof(char));
   int i;
@@ -47,6 +44,7 @@ int songcmp(struct song_node* song1, struct song_node* song2){
   char* artist2 = convert_lower(song2 -> artist);
   int artist_cmp = strcmp(artist1, artist2);
   int song_cmp = strcmp(name1, name2);
+  //convert_lower callocs strings
   free(name1);
   free(name2);
   free(artist1);

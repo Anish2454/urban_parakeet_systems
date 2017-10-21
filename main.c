@@ -9,6 +9,8 @@
 
 int main(){
   /*LINKED LIST===================================================*/
+  printf("\n\n########PROJECT 0: My_TUNEZ########\n\n");
+  printf("#BY: ANISH SHENOY AND JASPER CHEUNG#\n\n\n");
   printf("\n\nLINKED LIST TEST\n=====================\n\n");
 
   printf("Testing insert_in_order & print_list:\n");

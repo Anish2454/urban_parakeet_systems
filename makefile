@@ -12,7 +12,6 @@ main.o: main.c listfxns.h lib.h
 
 clean:
 	rm *.o
-	rm *.gch
 
 run: all
 	./music

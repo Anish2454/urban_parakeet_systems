@@ -6,14 +6,9 @@
 #include <ctype.h>
 #include "listfxns.h"
 
-/* TODO:
-Delete all the nodes.
-Comments
-Test Cases
-*/
-
 struct song_node* table[26];
 
+//Converts Letter to index in library
 int get_index(char letter){
   if(letter < 97){
     return letter - 65;
@@ -23,6 +18,7 @@ int get_index(char letter){
   }
 }
 
+//Gets list from char
 struct song_node* get_list(char letter){
   int index = get_index(letter);
   return table[index];
@@ -72,6 +68,9 @@ void remove_song(char* name, char* artist){
 	table[get_index(artist[0])] = remove_node(front, song);
 }
 
+//Get a random number between 0 and 25
+//If table[random number] is null keep going right
+//Return random node from table[random number]
 void shuffle(){
   int i;
   for(i=0; i < 3; i++){
